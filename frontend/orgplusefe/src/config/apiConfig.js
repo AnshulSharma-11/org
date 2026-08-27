@@ -1,5 +1,6 @@
-export let ADMIN_BASE = "http://localhost:8080/api/v1/admin";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
-// Scoped employee self-service base — /api/v1/employee/:id
+export let ADMIN_BASE = `${API_URL}/api/v1/admin`;
+
 export let EMPLOYEE_BASE = (employeeId) =>
-  `http://localhost:8080/api/v1/employee/${employeeId}`;
+  `${API_URL}/api/v1/employee/${employeeId}`;
