@@ -4,7 +4,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuth } from '../AuthContext';
 
-let AUTH_BASE = 'http://localhost:8080/api/v1/auth';
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
+
+export let AUTH_BASE = `${API_URL}/api/v1/auth`;
 
 const LETTERS_ONLY_REGEX = /^[A-Za-z\s]+$/;
 
