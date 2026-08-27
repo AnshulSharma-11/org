@@ -8,6 +8,6 @@ COPY src ./src
 RUN mvn dependency:go-offline
 RUN mvn clean package -DskipTests
 
-EXPOSE 10000
+EXPOSE 8080
 
 CMD ["sh", "-c", "java -jar target/*.jar"]
