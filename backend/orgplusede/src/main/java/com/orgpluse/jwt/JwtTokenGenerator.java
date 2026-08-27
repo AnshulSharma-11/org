@@ -15,7 +15,7 @@ import java.util.Map;
 @Component
 public class JwtTokenGenerator {
 
-    @Value("${jwt.secret}")
+    @Value("7y5r8r84f44f4gh4d646er4eyt8rg7g7t8gf51gf2")
     private String secret;
 
     private Claims extractAllClaims(String token) {
