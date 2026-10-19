@@ -64,7 +64,7 @@ function Chatbot() {
   // from one signed-in person to another when the identity changes.
   const [conv, setConv] = useState(() => ({ key, list: store.get(key, []) }));
   if (conv.key !== key) setConv({ key, list: store.get(key, []) });
-  const messages = conv.key === key ? conv.list : [];
+  const messages = useMemo(() => (conv.key === key ? conv.list : []), [conv, key]);
   const setMessages = (fn) => setConv((c) => (c.key === key ? { key, list: typeof fn === 'function' ? fn(c.list) : fn } : c));
   const [busy, setBusy] = useState(false);
   const [text, setText] = useState('');
@@ -108,7 +108,9 @@ function Chatbot() {
     if (open && !window.matchMedia('(pointer: coarse)').matches) setTimeout(() => inputRef.current?.focus(), 120);
   }, [open]);
 
-  const push = (m) => setMessages((prev) => [...prev, { id: `${Date.now()}-${uid++}`, ...m }]);
+  const push = useCallback((m) => {
+    setConv((c) => (c.key === key ? { key, list: [...c.list, { id: `${Date.now()}-${uid++}`, ...m }] } : c));
+  }, [key]);
 
   const send = useCallback(async (raw) => {
     const t = String(raw || '').trim().slice(0, 300);
@@ -127,7 +129,7 @@ function Chatbot() {
     if (reply.navigate) {
       setTimeout(() => { navigate(reply.navigate); if (window.innerWidth < 576) setOpen(false); }, 750);
     }
-  }, [busy, ctx, navigate]);
+  }, [busy, ctx, navigate, push]);
 
   const go = (to) => { navigate(to); if (window.innerWidth < 576) setOpen(false); };
   const clear = () => { setMessages([]); clearChatCache(); inputRef.current?.focus(); };

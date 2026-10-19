@@ -134,7 +134,7 @@ export const toSlices = (map, order = []) => {
 /* ───────── Payslip amounts (payslipData is free-form JSON) ───────── */
 const toNum = (v) => {
   if (typeof v === 'number') return Number.isFinite(v) ? v : null;
-  if (typeof v === 'string') { const n = parseFloat(v.replace(/[^0-9.\-]/g, '')); return Number.isNaN(n) ? null : n; }
+  if (typeof v === 'string') { const n = parseFloat(v.replace(/[^0-9.-]/g, '')); return Number.isNaN(n) ? null : n; }
   return null;
 };
 export function payslipAmounts(raw) {
