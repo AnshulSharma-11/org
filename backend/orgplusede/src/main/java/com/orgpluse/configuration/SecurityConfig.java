@@ -88,7 +88,11 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000","https://org-one-sandy.vercel.app"));
+        config.setAllowedOrigins(List.of(
+                "http://localhost:3000",
+                "https://org-one-sandy.vercel.app",
+                "https://org-anshulsharma-11s-projects.vercel.app"
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));   // allow Authorization header
         config.setExposedHeaders(List.of("*"));
