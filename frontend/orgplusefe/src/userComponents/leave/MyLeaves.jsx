@@ -43,7 +43,7 @@ export default function MyLeaves() {
       <div className="hrms-card mb-3 d-inline-flex align-items-center gap-3" style={{ padding: '14px 22px' }}>
         <div
           className="stat-icon"
-          style={{ background: '#fefce8', color: '#a16207', width: 44, height: 44, borderRadius: 10, fontSize: '1.2rem' }}
+          style={{ background: 'var(--warn-bg)', color: 'var(--warn-fg)', width: 44, height: 44, borderRadius: 10, fontSize: '1.2rem' }}
         >
           <i className="bi bi-calendar-minus"></i>
         </div>

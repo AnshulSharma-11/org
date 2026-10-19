@@ -6,7 +6,7 @@ export default function UserHome() {
   return (
     <>
       <UserNavbar />
-      <div style={{ padding: '24px' }}>
+      <div className="user-content">
         <Outlet />
       </div>
     </>

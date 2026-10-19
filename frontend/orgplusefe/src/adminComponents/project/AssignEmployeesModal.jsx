@@ -136,7 +136,7 @@ export default function AssignEmployeesModal({ project, onClose, onSaved }) {
                 onChange={e => setSearch(e.target.value)}
                 aria-label="Search employees"
               />
-              <div className="d-flex justify-content-between mt-2" style={{ fontSize: 12, color: '#64748b' }}>
+              <div className="d-flex justify-content-between mt-2" style={{ fontSize: 12, color: 'var(--muted)' }}>
                 <span>{filtered.length} employee{filtered.length !== 1 ? 's' : ''}</span>
                 <span>{selected.size} selected</span>
               </div>
@@ -165,7 +165,7 @@ export default function AssignEmployeesModal({ project, onClose, onSaved }) {
                       className="d-flex align-items-center gap-3 px-3 py-2 border-bottom"
                       style={{
                         cursor: 'pointer',
-                        background: isChecked ? '#eff6ff' : 'transparent',
+                        background: isChecked ? 'var(--primary-soft)' : 'transparent',
                         transition: 'background .1s',
                       }}
                     >
@@ -181,7 +181,7 @@ export default function AssignEmployeesModal({ project, onClose, onSaved }) {
                         <div className="fw-500" style={{ fontSize: 14 }}>
                           {emp.firstName} {emp.lastName}
                         </div>
-                        <div style={{ fontSize: 12, color: '#64748b' }}>
+                        <div style={{ fontSize: 12, color: 'var(--muted)' }}>
                           {emp.designation?.name ?? '—'}
                           {emp.department?.name ? ` · ${emp.department.name}` : ''}
                         </div>

@@ -65,7 +65,7 @@ export default function MyPayroll() {
                     <StatusBadge value={p.status} />
                   </div>
 
-                  <div className="mb-2" style={{ fontSize: '0.85rem', color: '#64748b' }}>
+                  <div className="mb-2" style={{ fontSize: '0.85rem', color: 'var(--muted)' }}>
                     <i className="bi bi-calendar3 me-1"></i>
                     Run Date: {p.runDate || '—'}
                   </div>
@@ -85,7 +85,7 @@ export default function MyPayroll() {
                     </table>
                   ) : p.payslipData ? (
                     <pre style={{
-                      fontSize: '0.78rem', background: '#f8fafc',
+                      fontSize: '0.78rem', background: 'var(--surface-2)',
                       borderRadius: 8, padding: '10px', marginTop: 10, whiteSpace: 'pre-wrap',
                     }}>
                       {p.payslipData}

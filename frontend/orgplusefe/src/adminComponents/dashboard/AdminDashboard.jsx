@@ -31,10 +31,10 @@ export default function AdminDashboard() {
   let loading = stats === null;
 
   let statCards = [
-    { label:'Total Employees', value:stats?.employees,   icon:'bi-people-fill',    bg:'#eff6ff', color:'#1d4ed8' },
-    { label:'Departments',     value:stats?.departments, icon:'bi-building-fill',  bg:'#f0fdf4', color:'#15803d' },
-    { label:'Branches',        value:stats?.branches,    icon:'bi-diagram-3-fill', bg:'#fff7ed', color:'#c2410c' },
-    { label:'Payroll Runs',    value:stats?.payrolls,    icon:'bi-wallet2',        bg:'#f0fdf4', color:'#15803d' },
+    { label:'Total Employees', value:stats?.employees,   icon:'bi-people-fill',    bg:'var(--primary-soft)', color:'var(--primary-soft-fg)' },
+    { label:'Departments',     value:stats?.departments, icon:'bi-building-fill',  bg:'var(--tone2-bg)', color:'var(--tone2-fg)' },
+    { label:'Branches',        value:stats?.branches,    icon:'bi-diagram-3-fill', bg:'var(--tone3-bg)', color:'var(--tone3-fg)' },
+    { label:'Payroll Runs',    value:stats?.payrolls,    icon:'bi-wallet2',        bg:'var(--tone4-bg)', color:'var(--tone4-fg)' },
   ];
 
   let quickCards = [
@@ -48,13 +48,14 @@ export default function AdminDashboard() {
     { label:'Performance',  icon:'bi-graph-up-arrow', cls:'qc-pink',   to:'/admin/performance' },
     { label:'Help Desk',    icon:'bi-headphones',     cls:'qc-indigo', to:'/admin/help' },
     { label:'Payroll Run',  icon:'bi-calendar-check', cls:'qc-lime',   to:'/admin/payroll/add' },
+    { label:'Reports',      icon:'bi-graph-up-arrow', cls:'qc-blue',   to:'/admin/reports' },
   ];
 
   return (
     <div className="hrms-content">
       <div className="page-header">
         <h4><i className="bi bi-grid"></i> Dashboard</h4>
-        <span style={{ fontSize:'0.85rem', color:'#64748b' }}>
+        <span style={{ fontSize:'0.85rem', color:'var(--muted)' }}>
           {new Date().toLocaleDateString('en-IN',{ weekday:'long', year:'numeric', month:'long', day:'numeric' })}
         </span>
       </div>
@@ -64,8 +65,8 @@ export default function AdminDashboard() {
           ? Array.from({ length:4 }).map((_,i) => (
               <div className="col-sm-6 col-xl-3" key={i}>
                 <div className="stat-card" style={{ minHeight:88 }}>
-                  <div style={{ width:50, height:50, borderRadius:12, background:'#e2e8f0' }} />
-                  <div style={{ flex:1 }}><div style={{ height:28, background:'#e2e8f0', borderRadius:6, marginBottom:8 }} /><div style={{ height:14, background:'#e2e8f0', borderRadius:6, width:'60%' }} /></div>
+                  <div style={{ width:50, height:50, borderRadius:12, background:'var(--border)' }} />
+                  <div style={{ flex:1 }}><div style={{ height:28, background:'var(--border)', borderRadius:6, marginBottom:8 }} /><div style={{ height:14, background:'var(--border)', borderRadius:6, width:'60%' }} /></div>
                 </div>
               </div>
             ))

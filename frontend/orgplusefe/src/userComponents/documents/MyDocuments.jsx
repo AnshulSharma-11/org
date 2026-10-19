@@ -88,13 +88,13 @@ function UploadPanel({ employeeId, onUploaded }) {
     }
   }
 
-  let { icon, color } = file ? fileIcon(file.type, file.name) : { icon: 'bi-cloud-upload', color: '#94a3b8' };
+  let { icon, color } = file ? fileIcon(file.type, file.name) : { icon: 'bi-cloud-upload', color: 'var(--faint)' };
 
   return (
     <div className="hrms-card mb-4">
-      <h6 style={{ fontWeight: 700, marginBottom: 16, color: '#0f172a',
+      <h6 style={{ fontWeight: 700, marginBottom: 16, color: 'var(--text)',
         display: 'flex', alignItems: 'center', gap: 8 }}>
-        <i className="bi bi-upload" style={{ color: '#2563eb' }}></i> Upload New Document
+        <i className="bi bi-upload" style={{ color: 'var(--primary)' }}></i> Upload New Document
       </h6>
 
       {/* Drop zone */}
@@ -104,12 +104,12 @@ function UploadPanel({ employeeId, onUploaded }) {
         onDrop={handleDrop}
         onClick={() => fileRef.current?.click()}
         style={{
-          border: `2px dashed ${dragging ? '#2563eb' : '#cbd5e1'}`,
+          border: `2px dashed ${dragging ? 'var(--primary)' : 'var(--border-strong)'}`,
           borderRadius: 12,
           padding: '28px 16px',
           textAlign: 'center',
           cursor: 'pointer',
-          background: dragging ? '#eff6ff' : '#f8fafc',
+          background: dragging ? 'var(--primary-soft)' : 'var(--surface-2)',
           transition: 'all 0.15s',
           marginBottom: 16,
         }}
@@ -118,17 +118,17 @@ function UploadPanel({ employeeId, onUploaded }) {
           style={{ fontSize: '2.2rem', color, display: 'block', marginBottom: 8 }}></i>
         {file ? (
           <>
-            <div style={{ fontWeight: 600, color: '#0f172a', fontSize: '0.9rem' }}>{file.name}</div>
-            <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: 4 }}>
+            <div style={{ fontWeight: 600, color: 'var(--text)', fontSize: '0.9rem' }}>{file.name}</div>
+            <div style={{ fontSize: '0.78rem', color: 'var(--muted)', marginTop: 4 }}>
               {formatBytes(file.size)} — click or drop to replace
             </div>
           </>
         ) : (
           <>
-            <div style={{ fontWeight: 500, color: '#475569', fontSize: '0.88rem' }}>
+            <div style={{ fontWeight: 500, color: 'var(--text-2)', fontSize: '0.88rem' }}>
               Click to browse or drag &amp; drop
             </div>
-            <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: 4 }}>
+            <div style={{ fontSize: '0.75rem', color: 'var(--faint)', marginTop: 4 }}>
               PDF, Word, Excel, images — up to 10 MB
             </div>
           </>
@@ -144,8 +144,8 @@ function UploadPanel({ employeeId, onUploaded }) {
 
       {/* Label */}
       <div className="mb-3">
-        <label className="form-label" style={{ fontSize: '0.82rem', fontWeight: 600, color: '#475569' }}>
-          Document Label <span style={{ color: '#94a3b8' }}>(optional)</span>
+        <label className="form-label" style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-2)' }}>
+          Document Label <span style={{ color: 'var(--faint)' }}>(optional)</span>
         </label>
         <input
           type="text"
@@ -225,9 +225,9 @@ function DocumentCard({ doc, employeeId, onDeleted }) {
     <div style={{
       display: 'flex', alignItems: 'center', gap: 14,
       padding: '14px 18px',
-      border: '1px solid #e2e8f0',
+      border: '1px solid var(--border)',
       borderRadius: 12,
-      background: '#fff',
+      background: 'var(--surface)',
       marginBottom: 10,
       transition: 'box-shadow 0.15s',
     }}
@@ -246,11 +246,11 @@ function DocumentCard({ doc, employeeId, onDeleted }) {
 
       {/* Info */}
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontWeight: 600, color: '#0f172a', fontSize: '0.92rem',
+        <div style={{ fontWeight: 600, color: 'var(--text)', fontSize: '0.92rem',
           whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {doc.documentLabel}
         </div>
-        <div style={{ fontSize: '0.76rem', color: '#64748b', marginTop: 2 }}>
+        <div style={{ fontSize: '0.76rem', color: 'var(--muted)', marginTop: 2 }}>
           {doc.originalName} &nbsp;·&nbsp; {formatBytes(doc.fileSize)}
           &nbsp;·&nbsp; {formatDate(doc.uploadedAt)}
         </div>
@@ -308,7 +308,7 @@ export default function MyDocuments() {
     <div>
       <div className="page-header">
         <h4><i className="bi bi-folder2-open"></i> My Documents</h4>
-        <span style={{ fontSize: '0.82rem', color: '#94a3b8' }}>
+        <span style={{ fontSize: '0.82rem', color: 'var(--faint)' }}>
           {docs.length} document{docs.length !== 1 ? 's' : ''}
         </span>
       </div>
@@ -316,9 +316,9 @@ export default function MyDocuments() {
       <UploadPanel employeeId={employeeId} onUploaded={loadDocs} />
 
       <div className="hrms-card">
-        <h6 style={{ fontWeight: 700, marginBottom: 16, color: '#0f172a',
+        <h6 style={{ fontWeight: 700, marginBottom: 16, color: 'var(--text)',
           display: 'flex', alignItems: 'center', gap: 8 }}>
-          <i className="bi bi-files" style={{ color: '#2563eb' }}></i> Uploaded Documents
+          <i className="bi bi-files" style={{ color: 'var(--primary)' }}></i> Uploaded Documents
         </h6>
 
         {loading ? (
@@ -326,7 +326,7 @@ export default function MyDocuments() {
             <span className="spinner-border spinner-border-sm"></span> Loading…
           </div>
         ) : docs.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '40px 0', color: '#94a3b8' }}>
+          <div style={{ textAlign: 'center', padding: '40px 0', color: 'var(--faint)' }}>
             <i className="bi bi-folder2 d-block mb-3" style={{ fontSize: '2.5rem', opacity: 0.35 }}></i>
             <div style={{ fontWeight: 500, fontSize: '0.9rem' }}>No documents uploaded yet</div>
             <div style={{ fontSize: '0.78rem', marginTop: 4 }}>

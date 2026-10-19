@@ -1,41 +1,33 @@
-import React from 'react'
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import ThemeToggle from '../../components/ThemeToggle';
+import { BrandMark } from '../../components/BrandLogo';
 
+// Role chooser. The main entry point is now the Home page (/), this page is kept for older links.
 export default function Combinelogin() {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-
-   return (
-    <div className="container vh-100 d-flex justify-content-center align-items-center" >
-      <div className="card shadow p-5 text-center" style={{ width: "400px" }}>
-        <h2 className="mb-4">Welcome to ORGPLUSE</h2>
-        <p className="text-muted mb-4">
-          Select your login type
-        </p>
-
-        <button
-          className="btn btn-primary mb-3"  style={{
-    background:
-      "linear-gradient(13deg,#0f172a 0%,#1e3a5f 6%,#1e293b 100%)"}}
-          onClick={() => navigate("/admin/login")}
-        >
-          Admin Login
-        </button>
-
-        <button
-          className="btn btn-primary"
-          style={{background:
-            "linear-gradient(13deg,#1a0533 0%,#3b0f7a 6%,#1e293b 100%)"}}
-          onClick={() => navigate("/employee/login")}
-        >
-          Employee Login
-        </button>
-        
+  return (
+    <div className="auth-page">
+      <div className="auth-theme"><ThemeToggle /></div>
+      <div className="auth-card">
+        <div className="auth-head hr">
+          <BrandMark />
+          <div>
+            <div className="t1">Welcome to ORGPLUS</div>
+            <div className="t2">Select your login type</div>
+          </div>
+        </div>
+        <div className="auth-body d-grid gap-3">
+          <button className="btn btn-primary py-2 fw-semibold" onClick={() => navigate('/admin/login')}>
+            <i className="bi bi-shield-lock-fill me-2"></i>HR Login
+          </button>
+          <button className="btn btn-outline-primary py-2 fw-semibold" onClick={() => navigate('/employee/login')}>
+            <i className="bi bi-person-badge-fill me-2"></i>Employee Login
+          </button>
+        </div>
       </div>
-      
+      <a href="/" className="auth-back"><i className="bi bi-arrow-left"></i> Back to Home</a>
     </div>
-    
   );
 }
-
-

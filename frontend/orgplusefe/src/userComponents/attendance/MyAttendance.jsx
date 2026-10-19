@@ -21,7 +21,7 @@ function StatCard({ label, value, icon, bg, color, loading }) {
       <div className="stat-body">
         <div className="stat-value" style={{ color }}>
           {loading
-            ? <span style={{ display: 'inline-block', width: 40, height: 28, borderRadius: 4, background: '#e2e8f0' }} />
+            ? <span style={{ display: 'inline-block', width: 40, height: 28, borderRadius: 4, background: 'var(--border)' }} />
             : value}
         </div>
         <div className="stat-label">{label}</div>
@@ -81,15 +81,15 @@ export default function MyAttendance() {
       <div className="hrms-stats-row" style={{ marginBottom: 20 }}>
         <StatCard
           label="Days Present" value={presentCount} icon="bi-check-circle-fill"
-          bg="#f0fdf4" color="#15803d" loading={loading}
+          bg="var(--ok-bg)" color="var(--ok-fg)" loading={loading}
         />
         <StatCard
           label="Days Absent"  value={absentCount}  icon="bi-x-circle-fill"
-          bg="#fef2f2" color="#b91c1c" loading={loading}
+          bg="var(--danger-bg)" color="var(--danger-fg)" loading={loading}
         />
         <StatCard
           label="Half Days"    value={halfDayCount} icon="bi-circle-half"
-          bg="#fefce8" color="#a16207" loading={loading}
+          bg="var(--warn-bg)" color="var(--warn-fg)" loading={loading}
         />
       </div>
 
@@ -172,7 +172,7 @@ export default function MyAttendance() {
             </tbody>
             {!loading && records.length > 0 && (
               <tfoot>
-                <tr style={{ background: '#f8fafc', fontWeight: 600 }}>
+                <tr style={{ background: 'var(--surface-2)', fontWeight: 600 }}>
                   <td colSpan={4} className="text-end pe-3">Summary:</td>
                   <td>{totalHours}h</td>
                   <td>

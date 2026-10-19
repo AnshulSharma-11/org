@@ -9,22 +9,22 @@ function InfoRow({ icon, label, value }) {
   return (
     <div style={{
       display: 'flex', alignItems: 'flex-start', gap: 12,
-      padding: '12px 0', borderBottom: '1px solid #f1f5f9',
+      padding: '12px 0', borderBottom: '1px solid var(--border)',
     }}>
       <div style={{
         width: 34, height: 34, borderRadius: 9,
-        background: '#eff6ff', color: '#2563eb',
+        background: 'var(--primary-soft)', color: 'var(--primary)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         fontSize: '1rem', flexShrink: 0,
       }}>
         <i className={`bi ${icon}`}></i>
       </div>
       <div>
-        <div style={{ fontSize: '0.74rem', color: '#94a3b8', fontWeight: 600,
+        <div style={{ fontSize: '0.74rem', color: 'var(--faint)', fontWeight: 600,
           textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 2 }}>
           {label}
         </div>
-        <div style={{ fontSize: '0.92rem', color: '#0f172a', fontWeight: 500 }}>
+        <div style={{ fontSize: '0.92rem', color: 'var(--text)', fontWeight: 500 }}>
           {value}
         </div>
       </div>
@@ -38,17 +38,17 @@ function SectionCard({ title, icon, children }) {
       <div style={{
         display: 'flex', alignItems: 'center', gap: 8,
         marginBottom: 16, paddingBottom: 14,
-        borderBottom: '2px solid #f1f5f9',
+        borderBottom: '2px solid var(--border)',
       }}>
         <div style={{
           width: 32, height: 32, borderRadius: 8,
-          background: '#2563eb', color: '#fff',
+          background: 'var(--primary)', color: 'var(--on-primary)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: '0.95rem',
         }}>
           <i className={`bi ${icon}`}></i>
         </div>
-        <h6 style={{ margin: 0, fontWeight: 700, color: '#0f172a', fontSize: '0.95rem' }}>
+        <h6 style={{ margin: 0, fontWeight: 700, color: 'var(--text)', fontSize: '0.95rem' }}>
           {title}
         </h6>
       </div>
@@ -108,7 +108,7 @@ export default function ViewProfile() {
       {/* Header */}
       <div className="page-header">
         <h4><i className="bi bi-person-badge"></i> My Profile</h4>
-        <span style={{ fontSize: '0.82rem', color: '#94a3b8' }}>
+        <span style={{ fontSize: '0.82rem', color: 'var(--faint)' }}>
           Read-only — contact HR to update your details
         </span>
       </div>
@@ -179,17 +179,17 @@ export default function ViewProfile() {
             }}>
               <div style={{
                 width: 34, height: 34, borderRadius: 9,
-                background: '#eff6ff', color: '#2563eb',
+                background: 'var(--primary-soft)', color: 'var(--primary)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: '1rem', flexShrink: 0,
               }}>
                 <i className="bi bi-circle-fill"
                   style={{ fontSize: '0.6rem',
-                    color: emp.status === 'ACTIVE' ? '#16a34a' : '#ef4444' }}
+                    color: emp.status === 'ACTIVE' ? 'var(--ok-fg)' : 'var(--danger-fg)' }}
                 ></i>
               </div>
               <div>
-                <div style={{ fontSize: '0.74rem', color: '#94a3b8', fontWeight: 600,
+                <div style={{ fontSize: '0.74rem', color: 'var(--faint)', fontWeight: 600,
                   textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 2 }}>
                   Status
                 </div>
@@ -206,18 +206,18 @@ export default function ViewProfile() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '8px 0' }}>
                 <div style={{
                   width: 52, height: 52, borderRadius: '50%',
-                  background: '#dbeafe', color: '#1d4ed8',
+                  background: 'var(--tone4-bg)', color: 'var(--tone4-fg)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontWeight: 700, fontSize: '1.1rem', flexShrink: 0,
                 }}>
                   {emp.manager.firstName?.[0]}{emp.manager.lastName?.[0]}
                 </div>
                 <div>
-                  <div style={{ fontWeight: 700, color: '#0f172a', fontSize: '1rem' }}>
+                  <div style={{ fontWeight: 700, color: 'var(--text)', fontSize: '1rem' }}>
                     {emp.manager.firstName} {emp.manager.lastName}
                   </div>
                   {emp.manager.employeeCode && (
-                    <div style={{ fontSize: '0.8rem', color: '#64748b', marginTop: 2 }}>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--muted)', marginTop: 2 }}>
                       {emp.manager.employeeCode}
                     </div>
                   )}

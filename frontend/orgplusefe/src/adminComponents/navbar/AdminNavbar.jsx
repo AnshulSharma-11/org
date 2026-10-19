@@ -1,8 +1,10 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
+import ThemeToggle from '../../components/ThemeToggle';
+import { BrandMark } from '../../components/BrandLogo';
 
-export default function AdminNavbar() {
+export default function AdminNavbar({ open = false, onClose = () => {} }) {
   let { logoutAdmin } = useAuth();
   let navigate = useNavigate();
   let link = ({ isActive }) => isActive ? 'nav-link active' : 'nav-link';
@@ -13,12 +15,12 @@ export default function AdminNavbar() {
   }
 
   return (
-    <div className="hrms-sidebar">
+    <div className={`hrms-sidebar ${open ? 'open' : ''}`} onClick={(e) => { if (e.target.closest('a')) onClose(); }}>
       <div className="brand">
-        <i className="bi bi-people-circle" style={{ fontSize: '1.4rem' }}></i>
+        <BrandMark />
         <div>
-          ORGPLUSE
-          <small>Admin Panel</small>
+          ORGPLUS
+          <small>HR Panel</small>
         </div>
       </div>
 
@@ -28,6 +30,9 @@ export default function AdminNavbar() {
       </NavLink>
       <NavLink to="/admin/employees" className={link}>
         <i className="bi bi-people"></i> Employees
+      </NavLink>
+      <NavLink to="/admin/reports" className={link}>
+        <i className="bi bi-graph-up-arrow"></i> Reports
       </NavLink>
 
       <div className="section-label">Organisation</div>
@@ -63,9 +68,12 @@ export default function AdminNavbar() {
         <i className="bi bi-headphones"></i> Help Desk
       </NavLink>
 
-      <button className="logout-btn" onClick={handleLogout}>
-        <i className="bi bi-box-arrow-left"></i> Logout
-      </button>
+      <div className="sidebar-tools">
+        <ThemeToggle variant="row" />
+        <button className="logout-btn" onClick={handleLogout}>
+          <i className="bi bi-box-arrow-left"></i> Logout
+        </button>
+      </div>
     </div>
   );
 }

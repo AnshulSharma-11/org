@@ -52,7 +52,7 @@ function SkeletonRow() {
           <div
             className="skeleton-box"
             style={{ width: w, height: 16, borderRadius: 4,
-              background: '#e2e8f0', animation: 'pulse 1.4s ease-in-out infinite' }}
+              background: 'var(--border)', animation: 'pulse 1.4s ease-in-out infinite' }}
           />
         </td>
       ))}

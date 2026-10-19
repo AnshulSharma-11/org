@@ -51,7 +51,7 @@ export default function DisplayProjects({ projects, onDelete, onRefresh, onAdd, 
                       <div className="fw-500">{p.name}</div>
                       {p.description && (
                         <div
-                          style={{ fontSize: 12, color: '#64748b', maxWidth: 260,
+                          style={{ fontSize: 12, color: 'var(--muted)', maxWidth: 260,
                             whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
                           title={p.description}
                         >

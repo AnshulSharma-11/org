@@ -46,7 +46,7 @@ export default function DisplayPayroll({ payrollsValue, onDelete, onFilter, Filt
         month_year: monthLabel,
       },
       theme: {
-        color: "#1e293b",
+        color: "var(--text)",
       },
       handler: function (response) {
         // Payment successful on Razorpay side

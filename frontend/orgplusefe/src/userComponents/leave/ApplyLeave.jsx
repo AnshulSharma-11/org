@@ -125,10 +125,10 @@ export default function ApplyLeave() {
                 totalDays === null && startDate && endDate ? 'is-invalid' : ''
               }`}
               style={{
-                background: 'var(--bs-secondary-bg, #f8f9fa)',
+                background: 'var(--bs-secondary-bg, var(--surface-2))',
                 cursor: 'default',
                 fontWeight: 500,
-                color: totalDays !== null ? 'inherit' : '#6c757d',
+                color: totalDays !== null ? 'inherit' : 'var(--muted)',
               }}
             >
               {totalDays !== null

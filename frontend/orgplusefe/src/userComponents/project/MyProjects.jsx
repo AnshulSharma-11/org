@@ -12,7 +12,7 @@ function StatCard({ label, value, icon, bg, color, loading }) {
       <div className="stat-body">
         <div className="stat-value" style={{ color }}>
           {loading
-            ? <span className="skeleton-box" style={{ width: 40, height: 28, borderRadius: 4, display: 'inline-block', background: '#e2e8f0' }} />
+            ? <span className="skeleton-box" style={{ width: 40, height: 28, borderRadius: 4, display: 'inline-block', background: 'var(--border)' }} />
             : value}
         </div>
         <div className="stat-label">{label}</div>
@@ -32,7 +32,7 @@ function SkeletonRow() {
     <tr>
       {[120, 70, 90, 90, 200].map((w, i) => (
         <td key={i}>
-          <div style={{ width: w, height: 14, borderRadius: 4, background: '#e2e8f0', animation: 'pulse 1.4s ease-in-out infinite' }} />
+          <div style={{ width: w, height: 14, borderRadius: 4, background: 'var(--border)', animation: 'pulse 1.4s ease-in-out infinite' }} />
         </td>
       ))}
     </tr>
@@ -62,9 +62,9 @@ export default function MyProjects() {
       </div>
 
       <div className="hrms-stats-row" style={{ marginBottom: 24 }}>
-        <StatCard label="Total Assigned" value={total}      icon="bi-kanban"          bg="#eff6ff" color="#1d4ed8" loading={loading} />
-        <StatCard label="In Progress"    value={inProgress} icon="bi-arrow-clockwise" bg="#fff7ed" color="#c2410c" loading={loading} />
-        <StatCard label="Completed"      value={completed}  icon="bi-check-circle"    bg="#f0fdf4" color="#15803d" loading={loading} />
+        <StatCard label="Total Assigned" value={total}      icon="bi-kanban"          bg="var(--primary-soft)" color="var(--primary-soft-fg)" loading={loading} />
+        <StatCard label="In Progress"    value={inProgress} icon="bi-arrow-clockwise" bg="var(--tone3-bg)" color="var(--tone3-fg)" loading={loading} />
+        <StatCard label="Completed"      value={completed}  icon="bi-check-circle"    bg="var(--ok-bg)" color="var(--ok-fg)" loading={loading} />
       </div>
 
       <div className="hrms-card">
@@ -96,7 +96,7 @@ export default function MyProjects() {
                     <td><Badge value={p.priority} /></td>
                     <td><Badge value={p.status} /></td>
                     <td>{p.deadline ?? '—'}</td>
-                    <td style={{ color: '#64748b', fontSize: 13 }}>
+                    <td style={{ color: 'var(--muted)', fontSize: 13 }}>
                       {p.description
                         ? p.description.length > 80 ? p.description.slice(0, 80) + '…' : p.description
                         : '—'}

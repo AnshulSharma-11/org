@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ToastContainer, Zoom } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.min.css';
 import 'react-toastify/dist/ReactToastify.css';
+import './theme/theme.css';
 import './hrms.css';
 
 // ── Auth
+import { ThemeProvider, useTheme } from './theme/ThemeContext';
 import { AuthProvider }    from './auth/AuthContext';
 import ProtectedRoute      from './auth/ProtectedRoute';
 import AdminLoginPage      from './auth/pages/AdminLoginPage';
@@ -55,8 +57,15 @@ import RaiseHelpRequest    from './userComponents/help/RaiseHelpRequest';
 import MyPayroll           from './userComponents/payroll/MyPayroll';
 import MyAttendance        from './userComponents/attendance/MyAttendance';
 import Combinelogin from './auth/pages/Combinelogin';
+import HomePage from './pages/HomePage';
+import HrReports from './adminComponents/reports/HrReports';
+import MyReports from './userComponents/reports/MyReports';
+import ChatLayout from './chatbot/Chatbot';
 
-let router = createBrowserRouter([
+// Every page is rendered inside ChatLayout so the ORGPLUS Assistant is available everywhere
+let router = createBrowserRouter([{
+  element: <ChatLayout />,
+  children: [
   { path: '/combinelogin' , element:<Combinelogin/> },
   { path: '/employee/login', element: <EmployeeLoginPage /> },
   { path: '/admin/login',    element: <AdminLoginPage /> },
@@ -96,6 +105,7 @@ let router = createBrowserRouter([
       { path: 'help/update/:id',             element: <UpdateHelp /> },
       { path: 'projects',                    element: <FetchProjects /> },
       { path: 'projects/add',               element: <AddProject /> },
+      { path: 'reports',                    element: <HrReports /> },
     ],
   },
 
@@ -116,29 +126,41 @@ let router = createBrowserRouter([
       { path: 'payroll',       element: <MyPayroll /> },
       { path: 'attendance',    element: <MyAttendance /> },
       { path: 'projects',      element: <MyProjects /> },
+      { path: 'reports',       element: <MyReports /> },
     ],
   },
 
-  { path: '/', element: <Navigate to="/combinelogin" replace /> }, // home page link where it start first once you start the serve this link goes
+  { path: '/', element: <HomePage /> }, // home page — landing page with HR / Employee login buttons
 
   {
     path: '*',
     element: (
-      <div style={{ minHeight:'100vh', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:12, fontFamily:'sans-serif', color:'#64748b' }}>
-        <i className="bi bi-exclamation-circle" style={{ fontSize:'3rem', color:'#cbd5e1' }}></i>
-        <h2 style={{ margin:0, color:'#0f172a' }}>404 — Page Not Found</h2>
-        <a href="/combinelogin" style={{ color:'#2563eb', textDecoration:'none', fontWeight:600 }}>← Back to Login</a>
+      <div style={{ minHeight:'100vh', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:12, color:'var(--muted)', padding:24, textAlign:'center' }}>
+        <i className="bi bi-exclamation-circle" style={{ fontSize:'3rem', color:'var(--faint)' }}></i>
+        <h2 style={{ margin:0, color:'var(--text)' }}>404 — Page Not Found</h2>
+        <a href="/" style={{ color:'var(--primary)', textDecoration:'none', fontWeight:600 }}>← Back to Home</a>
       </div>
     ),
   },
-]);
+  ],
+}]);
+
+// Toasts follow the active light / dark theme
+function ThemedToasts() {
+  let { theme } = useTheme();
+  return (
+    <ToastContainer position="top-right" autoClose={2000}
+      hideProgressBar={false} newestOnTop={false}
+      closeOnClick={false} rtl={false}
+      pauseOnFocusLoss draggable pauseOnHover theme={theme} transition={Zoom} />
+  );
+}
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <AuthProvider>
-    <RouterProvider router={router} />
-    <ToastContainer position="top-right" autoClose={2000} 
-    hideProgressBar={false} newestOnTop={false} 
-    closeOnClick={false} rtl={false} 
-    pauseOnFocusLoss draggable pauseOnHover theme="light" transition={Zoom} />
-  </AuthProvider>
+  <ThemeProvider>
+    <AuthProvider>
+      <RouterProvider router={router} />
+      <ThemedToasts />
+    </AuthProvider>
+  </ThemeProvider>
 );

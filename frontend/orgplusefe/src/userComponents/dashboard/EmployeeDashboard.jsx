@@ -67,29 +67,29 @@ export default function EmployeeDashboard() {
       label: 'Leaves Remaining',
       value: leavesRemaining,
       icon: 'bi-calendar-minus',
-      bg: '#fefce8',
-      color: '#a16207',
+      bg: 'var(--tone1-bg)',
+      color: 'var(--tone1-fg)',
     },
     {
       label: 'Days Present',
       value: daysPresent,
       icon: 'bi-clock-history',
-      bg: '#f0fdf4',
-      color: '#15803d',
+      bg: 'var(--tone2-bg)',
+      color: 'var(--tone2-fg)',
     },
     {
       label: 'Open Tickets',
       value: openTickets,
       icon: 'bi-headphones',
-      bg: '#dbeafe',
-      color: '#1e40af',
+      bg: 'var(--tone4-bg)',
+      color: 'var(--tone4-fg)',
     },
     {
       label: 'Pending Leaves',
       value: pendingLeaves,
       icon: 'bi-hourglass-split',
-      bg: '#fff7ed',
-      color: '#c2410c',
+      bg: 'var(--tone3-bg)',
+      color: 'var(--tone3-fg)',
     },
   ];
 
@@ -100,6 +100,7 @@ export default function EmployeeDashboard() {
     { label: 'Raise Help',    to: `${base}/help/raise`,   cls: 'qc-indigo', icon: 'bi-headset' },
     { label: 'View Payslip',  to: `${base}/payroll`,      cls: 'qc-green',  icon: 'bi-wallet2' },
     { label: 'My Attendance', to: `${base}/attendance`,   cls: 'qc-orange', icon: 'bi-clock' },
+    { label: 'My Reports',    to: `${base}/reports`,      cls: 'qc-blue',   icon: 'bi-graph-up-arrow' },
   ];
 
   return (

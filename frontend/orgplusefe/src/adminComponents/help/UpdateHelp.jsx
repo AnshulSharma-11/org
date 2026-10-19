@@ -41,14 +41,14 @@ export default function UpdateHelp() {
       <div className="page-header"><h4><i className="bi bi-headphones"></i> Update Help Ticket</h4></div>
       <div className="hrms-form-card" style={{ maxWidth:720 }}>
         {ticket && (
-          <div className="mb-4 p-3 rounded" style={{ background:'#f8fafc', border:'1px solid #e2e8f0' }}>
+          <div className="mb-4 p-3 rounded" style={{ background:'var(--surface-2)', border:'1px solid var(--border)' }}>
             <div className="mb-2">
-              <span style={{ fontWeight:600, fontSize:'0.8rem', textTransform:'uppercase', letterSpacing:'0.05em', color:'#64748b' }}>Subject</span>
-              <div style={{ fontWeight:600, color:'#0f172a' }}>{ticket.subject}</div>
+              <span style={{ fontWeight:600, fontSize:'0.8rem', textTransform:'uppercase', letterSpacing:'0.05em', color:'var(--muted)' }}>Subject</span>
+              <div style={{ fontWeight:600, color:'var(--text)' }}>{ticket.subject}</div>
             </div>
             <div>
-              <span style={{ fontWeight:600, fontSize:'0.8rem', textTransform:'uppercase', letterSpacing:'0.05em', color:'#64748b' }}>Description</span>
-              <div style={{ color:'#475569', whiteSpace:'pre-wrap' }}>{ticket.description}</div>
+              <span style={{ fontWeight:600, fontSize:'0.8rem', textTransform:'uppercase', letterSpacing:'0.05em', color:'var(--muted)' }}>Description</span>
+              <div style={{ color:'var(--text-2)', whiteSpace:'pre-wrap' }}>{ticket.description}</div>
             </div>
           </div>
         )}

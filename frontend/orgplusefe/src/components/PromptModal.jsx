@@ -77,7 +77,7 @@ export default function PromptModal({
       {/* Dialog */}
       <div
         style={{
-          background: '#fff', borderRadius: 14,
+          background: 'var(--surface)', color: 'var(--text)', border: '1px solid var(--border)', borderRadius: 14,
           boxShadow: '0 20px 60px rgba(0,0,0,0.25)',
           width: '100%', maxWidth: 480,
           animation: 'pmSlideUp 0.18s ease',
@@ -87,9 +87,9 @@ export default function PromptModal({
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           padding: '18px 22px 14px',
-          borderBottom: '1px solid #e2e8f0',
+          borderBottom: '1px solid var(--border)',
         }}>
-          <h6 id="pm-title" style={{ margin: 0, fontWeight: 700, color: '#0f172a', fontSize: '1rem' }}>
+          <h6 id="pm-title" style={{ margin: 0, fontWeight: 700, color: 'var(--text)', fontSize: '1rem' }}>
             {title}
           </h6>
           <button
@@ -98,7 +98,7 @@ export default function PromptModal({
             aria-label="Close"
             style={{
               background: 'none', border: 'none', cursor: 'pointer',
-              color: '#94a3b8', fontSize: '1.2rem', padding: '2px 6px',
+              color: 'var(--faint)', fontSize: '1.2rem', padding: '2px 6px',
               lineHeight: 1, borderRadius: 6,
             }}
           >
@@ -111,10 +111,10 @@ export default function PromptModal({
           <div style={{ padding: '20px 22px' }}>
             <label
               htmlFor="pm-note"
-              style={{ display: 'block', fontWeight: 600, fontSize: '0.83rem', color: '#374151', marginBottom: 6 }}
+              style={{ display: 'block', fontWeight: 600, fontSize: '0.83rem', color: 'var(--text-2)', marginBottom: 6 }}
             >
               {label}
-              {required && <span style={{ color: '#ef4444', marginLeft: 3 }}>*</span>}
+              {required && <span style={{ color: 'var(--danger-fg)', marginLeft: 3 }}>*</span>}
             </label>
             <textarea
               id="pm-note"
@@ -139,7 +139,7 @@ export default function PromptModal({
           <div style={{
             display: 'flex', justifyContent: 'flex-end', gap: 10,
             padding: '14px 22px 20px',
-            borderTop: '1px solid #f1f5f9',
+            borderTop: '1px solid var(--border)',
           }}>
             <button
               type="button"
