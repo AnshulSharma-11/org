@@ -91,7 +91,9 @@ public class SecurityConfig {
         config.setAllowedOrigins(List.of(
                 "http://localhost:3000",
                 "https://org-one-sandy.vercel.app",
-                "https://org-anshulsharma-11s-projects.vercel.app"
+                "https://org-anshulsharma-11s-projects.vercel.app",
+                "https://org-git-main-anshulsharma-11s-projects.vercel.app",
+                "https://org-dd6nmbe26-anshulsharma-11s-projects.vercel.app"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));   // allow Authorization header
