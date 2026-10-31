@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { EMPLOYEE_BASE } from '../../config/apiConfig';
 import { DEFAULT_LEAVE_QUOTA } from '../../config/appConfig';
+import AttendancePunchCard from '../attendance/AttendancePunchCard';
 
 export default function EmployeeDashboard() {
   let { employeeId } = useParams();
@@ -11,6 +12,7 @@ export default function EmployeeDashboard() {
   let [attendance, setAttendance] = useState([]);
   let [help, setHelp] = useState([]);
   let [loading, setLoading] = useState(true);
+  let [reloadTick, setReloadTick] = useState(0);
 
   useEffect(() => {
     async function load() {
@@ -35,7 +37,7 @@ export default function EmployeeDashboard() {
       }
     }
     load();
-  }, [employeeId]);
+  }, [employeeId, reloadTick]);
 
   if (loading) return (
     <div className="d-flex align-items-center gap-2 mt-4">
@@ -139,6 +141,9 @@ export default function EmployeeDashboard() {
           </div>
         </div>
       </div>
+
+      {/* Today's attendance: check in / break / check out */}
+      <AttendancePunchCard employeeId={employeeId} onChange={() => setReloadTick(t => t + 1)} />
 
       {/* Stats Row */}
       <div className="row g-3 mb-4">

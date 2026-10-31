@@ -33,7 +33,7 @@ public class TimeRecord {
     @Column(nullable = false)
     private LocalDate date;
 
-    // PRESENT / ABSENT / HALF_DAY / ON_LEAVE
+    // PRESENT / ABSENT / HALF_DAY / ON_LEAVE / WEEKEND
     @Column
     private String status;
 
@@ -45,6 +45,22 @@ public class TimeRecord {
 
     @Column(columnDefinition = "TEXT")
     private String notes;
+
+    // ── Live-session fields (self check-in / break tracking) ──────────────────
+    // WORKING / ON_BREAK while the employee is clocked in; null when checked out
+    @Column(name = "live_status")
+    private String liveStatus;
+
+    // true when the first check-in of the day was after shift start (+ grace)
+    @Column(name = "is_late")
+    private Boolean late;
+
+    @Column(name = "break_started_at")
+    private LocalDateTime breakStartedAt;
+
+    // total completed break time (seconds), deducted from hoursWorked
+    @Column(name = "break_seconds")
+    private Long breakSeconds;
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)

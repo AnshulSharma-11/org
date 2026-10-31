@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { EMPLOYEE_BASE } from '../../config/apiConfig';
+import AttendancePunchCard from './AttendancePunchCard';
+import AttendanceCalendar from './AttendanceCalendar';
 
 function StatusBadge({ value }) {
   let cls = value
@@ -33,7 +35,9 @@ function StatCard({ label, value, icon, bg, color, loading }) {
 export default function MyAttendance() {
   let { employeeId }          = useParams();
   let [records, setRecords]   = useState(null);
-  let [filters, setFilters]   = useState({});
+  let [reloadTick, setReloadTick] = useState(0);
+  let currentMonth = () => ({ month: new Date().getMonth() + 1, year: new Date().getFullYear() });
+  let [filters, setFilters]   = useState(currentMonth);
 
   let { register, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -45,7 +49,7 @@ export default function MyAttendance() {
   useEffect(() => {
     async function load() {
       try {
-        let url = `${EMPLOYEE_BASE(employeeId)}/attendance?`;
+        let url = `${EMPLOYEE_BASE(employeeId)}/attendance?size=62&`;
         if (filters.month && filters.year) {
           let m       = String(filters.month).padStart(2, '0');
           let y       = filters.year;
@@ -61,13 +65,15 @@ export default function MyAttendance() {
       }
     }
     load();
-  }, [employeeId, filters]);
+  }, [employeeId, filters, reloadTick]);
 
   // ── Stats computed from fetched records (no extra API call) ───────────────
   let loading      = records === null;
   let presentCount = loading ? 0 : records.filter(r => r.status === 'PRESENT').length;
   let absentCount  = loading ? 0 : records.filter(r => r.status === 'ABSENT').length;
   let halfDayCount = loading ? 0 : records.filter(r => r.status === 'HALF_DAY').length;
+  let lateCount    = loading ? 0 : records.filter(r => r.status === 'PRESENT' && r.late).length;
+  let leaveCount   = loading ? 0 : records.filter(r => r.status === 'ON_LEAVE').length;
   let totalHours   = loading ? '0.0'
     : records.reduce((sum, r) => sum + (r.hoursWorked ?? 0), 0).toFixed(1);
 
@@ -76,6 +82,9 @@ export default function MyAttendance() {
       <div className="page-header">
         <h4><i className="bi bi-clock"></i> My Attendance</h4>
       </div>
+
+      {/* ── Today: check in / break / check out ───────────────────────────── */}
+      <AttendancePunchCard employeeId={employeeId} onChange={() => setReloadTick(t => t + 1)} />
 
       {/* ── Stats row ──────────────────────────────────────────────────────── */}
       <div className="hrms-stats-row" style={{ marginBottom: 20 }}>
@@ -90,6 +99,14 @@ export default function MyAttendance() {
         <StatCard
           label="Half Days"    value={halfDayCount} icon="bi-circle-half"
           bg="var(--warn-bg)" color="var(--warn-fg)" loading={loading}
+        />
+        <StatCard
+          label="Late Arrivals" value={lateCount} icon="bi-alarm"
+          bg="var(--danger-bg)" color="var(--danger-fg)" loading={loading}
+        />
+        <StatCard
+          label="On Leave"      value={leaveCount} icon="bi-umbrella"
+          bg="var(--tone1-bg)" color="var(--tone1-fg)" loading={loading}
         />
       </div>
 
@@ -117,13 +134,18 @@ export default function MyAttendance() {
           type="button"
           className="btn btn-outline-secondary btn-sm"
           onClick={() => {
-            reset({ month: new Date().getMonth() + 1, year: new Date().getFullYear() });
-            setFilters({});
+            reset(currentMonth());
+            setFilters(currentMonth());
           }}
         >
           Reset
         </button>
       </form>
+
+      {/* ── Month calendar ────────────────────────────────────────────────── */}
+      {!loading && (
+        <AttendanceCalendar year={filters.year} month={filters.month} records={records} />
+      )}
 
       {/* ── Records table ─────────────────────────────────────────────────── */}
       <div className="hrms-card">
@@ -164,7 +186,12 @@ export default function MyAttendance() {
                     <td>{r.checkIn  ? new Date(r.checkIn).toLocaleTimeString()  : '—'}</td>
                     <td>{r.checkOut ? new Date(r.checkOut).toLocaleTimeString() : '—'}</td>
                     <td>{r.hoursWorked != null ? `${r.hoursWorked}h` : '—'}</td>
-                    <td><StatusBadge value={r.status} /></td>
+                    <td>
+                      <StatusBadge value={r.status} />
+                      {r.late && r.status === 'PRESENT' && (
+                        <span className="status-badge badge-late ms-1">Late</span>
+                      )}
+                    </td>
                     <td>{r.remarks || r.notes || '—'}</td>
                   </tr>
                 ))

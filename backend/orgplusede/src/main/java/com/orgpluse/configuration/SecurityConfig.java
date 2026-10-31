@@ -93,7 +93,8 @@ public class SecurityConfig {
                 "https://org-one-sandy.vercel.app",
                 "https://org-anshulsharma-11s-projects.vercel.app",
                 "https://org-git-main-anshulsharma-11s-projects.vercel.app",
-                "https://org-dd6nmbe26-anshulsharma-11s-projects.vercel.app"
+                "https://org-dd6nmbe26-anshulsharma-11s-projects.vercel.app",
+                "https://org-6ygcqc58z-anshulsharma-11s-projects.vercel.app"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));   // allow Authorization header

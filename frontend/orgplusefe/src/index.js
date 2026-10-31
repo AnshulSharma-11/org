@@ -32,6 +32,7 @@ import FetchEmployees      from './adminComponents/employee/FetchEmployees';
 import AddEmployee         from './adminComponents/employee/AddEmployee';
 import UpdateEmployee      from './adminComponents/employee/UpdateEmployee';
 import FetchTimeRecords    from './adminComponents/timerecord/FetchTimeRecords';
+import AttendanceDashboard from './adminComponents/attendance/AttendanceDashboard';
 import FetchLeaves         from './adminComponents/leave/FetchLeaves';
 import AddLeave            from './adminComponents/leave/AddLeave';
 import UpdateLeave         from './adminComponents/leave/UpdateLeave';
@@ -92,6 +93,7 @@ let router = createBrowserRouter([{
       { path: 'employees',                   element: <FetchEmployees /> },
       { path: 'employees/add',               element: <AddEmployee /> },
       { path: 'employees/update/:id',        element: <UpdateEmployee /> },
+      { path: 'attendance',                  element: <AttendanceDashboard /> },
       { path: 'time-records',                element: <FetchTimeRecords /> },
       { path: 'leaves',                      element: <FetchLeaves /> },
       { path: 'leaves/add',                  element: <AddLeave /> },

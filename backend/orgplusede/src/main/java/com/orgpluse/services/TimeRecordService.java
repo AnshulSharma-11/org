@@ -1,5 +1,7 @@
 package com.orgpluse.services;
 
+import com.orgpluse.attendance.AttendanceCalculator;
+import com.orgpluse.attendance.AttendanceProperties;
 import com.orgpluse.common.PageResponse;
 import com.orgpluse.common.PageableUtils;
 import com.orgpluse.entities.Employee;
@@ -37,6 +39,7 @@ public class TimeRecordService {
     @Autowired private TimeRecordRepository timeRecordRepository;
     @Autowired private EmployeeRepository   employeeRepository;
     @Autowired private UniversalResponse    response;
+    @Autowired private AttendanceProperties attendanceProperties;
 
     // ── CREATE ────────────────────────────────────────────────────────────────
 
@@ -85,6 +88,13 @@ public class TimeRecordService {
         record.setCheckOut(checkOut);
         record.setRemarks(dto.getNotes());
         record.setNotes(dto.getNotes());
+
+        // HR edit overrides any live self check-in session and recomputes the late flag
+        record.setLiveStatus(null);
+        record.setBreakStartedAt(null);
+        record.setLate("PRESENT".equalsIgnoreCase(dto.getStatus()) && checkIn != null
+                && AttendanceCalculator.isLate(checkIn.toLocalTime(), attendanceProperties.shiftStart(),
+                                               attendanceProperties.graceMinutes()));
 
         // Auto-calculate hours worked if both times are present
         if (checkOut != null) {

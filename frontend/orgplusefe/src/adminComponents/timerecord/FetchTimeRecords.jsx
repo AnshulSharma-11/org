@@ -1,9 +1,11 @@
 import authFetch from '../../config/authFetch';
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { ADMIN_BASE } from '../../config/apiConfig';
 import DisplayTimeRecords from './DisplayTimeRecords';
+import { downloadAttendanceCsv } from '../attendance/exportCsv';
 
 // ── Filter bar (sort removed) ─────────────────────────────────────────────────
 function FilterBar({ onFilter }) {
@@ -22,6 +24,7 @@ function FilterBar({ onFilter }) {
         <option value="ABSENT">Absent</option>
         <option value="HALF_DAY">Half Day</option>
         <option value="ON_LEAVE">On Leave</option>
+        <option value="WEEKEND">Weekend</option>
       </select>
       <input
         type="date"
@@ -170,7 +173,8 @@ function MarkAttendancePanel({ onSuccess }) {
                   <option value="PRESENT">Present</option>
                   <option value="ABSENT">Absent</option>
                   <option value="HALF_DAY">Half Day</option>
-                  <option value="LEAVE">Leave</option>
+                  <option value="ON_LEAVE">On Leave</option>
+                  <option value="WEEKEND">Weekend</option>
                 </select>
                 {errors.status && (
                   <div className="invalid-feedback d-block" style={{ fontSize: 12 }}>
@@ -260,6 +264,20 @@ export default function FetchTimeRecords() {
     load();
   }, [filters, isRefresh]);
 
+  async function exportCsv() {
+    try {
+      await downloadAttendanceCsv({
+        dateFrom:   filters.dateFrom,
+        dateTo:     filters.dateTo,
+        status:     filters.status,
+        employeeId: filters.employeeId,
+      });
+      toast.success('CSV downloaded');
+    } catch (e) {
+      toast.error(e.message || 'Export failed');
+    }
+  }
+
   async function deleteRecord(id) {
     try {
       let res = await authFetch(`${ADMIN_BASE}/time-records/${id}`, { method: 'DELETE' });
@@ -284,6 +302,17 @@ export default function FetchTimeRecords() {
     <div className="hrms-content">
       <div className="page-header">
         <h4><i className="bi bi-clock"></i> Attendance Records</h4>
+      </div>
+
+      {/* Live dashboard + CSV export (uses the filters below; no dates = today) */}
+      <div className="d-flex flex-wrap gap-2 mb-3">
+        <Link to="/admin/attendance" className="btn btn-outline-secondary btn-sm">
+          <i className="bi bi-activity me-1"></i>Live dashboard
+        </Link>
+        <button type="button" className="btn btn-outline-primary btn-sm" onClick={exportCsv}
+                title="Exports the date range and filters currently applied (today if no dates)">
+          <i className="bi bi-download me-1"></i>Export CSV
+        </button>
       </div>
 
       {/* Mark Attendance Panel */}

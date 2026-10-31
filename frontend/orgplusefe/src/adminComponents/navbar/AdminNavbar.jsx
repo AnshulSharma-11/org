@@ -47,8 +47,11 @@ export default function AdminNavbar({ open = false, onClose = () => {} }) {
       </NavLink>
 
       <div className="section-label">Operations</div>
+      <NavLink to="/admin/attendance" className={link}>
+        <i className="bi bi-activity"></i> Live Attendance
+      </NavLink>
       <NavLink to="/admin/time-records" className={link}>
-        <i className="bi bi-clock"></i> Attendance
+        <i className="bi bi-clock"></i> Attendance Records
       </NavLink>
       <NavLink to="/admin/leaves" className={link}>
         <i className="bi bi-umbrella"></i> Leave

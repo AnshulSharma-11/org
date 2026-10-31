@@ -1,5 +1,6 @@
 package com.orgpluse.controllers;
 
+import com.orgpluse.attendance.SelfAccessGuard;
 import com.orgpluse.entities.Help;
 import com.orgpluse.entities.Leave;
 import com.orgpluse.response_wrapper.ResponseWrapper;
@@ -11,6 +12,7 @@ import com.orgpluse.services.TimeRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -32,6 +34,7 @@ public class EmployeeSelfServiceController {
     @Autowired private PayrollRunService payrollRunService;
     @Autowired private TimeRecordService timeRecordService;
     @Autowired private HelpService       helpService;
+    @Autowired private SelfAccessGuard   selfAccessGuard;
 
     // ─────────────────────────────────────────────────────────────────────────
     //  LEAVES
@@ -118,8 +121,11 @@ public class EmployeeSelfServiceController {
             @RequestParam(required = false) String sortBy,
             @RequestParam(required = false) String sortDirection,
             @RequestParam(required = false) Integer page,
-            @RequestParam(required = false) Integer size) {
+            @RequestParam(required = false) Integer size,
+            Authentication auth) {
 
+        // An employee may only read their own attendance (id in URL must match the JWT user)
+        selfAccessGuard.assertSelf(employeeId, auth);
         return timeRecordService.filterTimeRecords(
                 employeeId, status, dateFrom, dateTo, sortBy, sortDirection, page, size);
     }

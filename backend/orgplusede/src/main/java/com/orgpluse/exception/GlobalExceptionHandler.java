@@ -84,6 +84,16 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.error(ex.getMessage(), 409));
     }
 
+    // ── 2b. State conflict (e.g. already checked in) — 409 ───────────────────
+
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<ApiResponse<Void>> handleConflict(ConflictException ex) {
+        log.warn("Conflict: {}", ex.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(ApiResponse.error(ex.getMessage(), 409));
+    }
+
     // ── 3. Business rule violation — 400 ─────────────────────────────────────
 
     @ExceptionHandler(BadRequestException.class)

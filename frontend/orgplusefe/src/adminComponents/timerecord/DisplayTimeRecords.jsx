@@ -22,6 +22,7 @@ export default function DisplayTimeRecords({ recordsValue, onDelete, onFilter, F
                 <th>Date</th>
                 <th>Check In</th>
                 <th>Check Out</th>
+                <th>Break</th>
                 <th>Hours Worked</th>
                 <th>Status</th>
                 <th>Remarks</th>
@@ -30,7 +31,7 @@ export default function DisplayTimeRecords({ recordsValue, onDelete, onFilter, F
             </thead>
             <tbody>
               {recordsValue.length === 0 ? (
-                <tr><td colSpan={9} className="text-center text-muted py-4">No records found.</td></tr>
+                <tr><td colSpan={10} className="text-center text-muted py-4">No records found.</td></tr>
               ) : (
                 recordsValue.map((r, idx) => (
                   <tr key={r.id}>
@@ -39,8 +40,13 @@ export default function DisplayTimeRecords({ recordsValue, onDelete, onFilter, F
                     <td>{r.date || '—'}</td>
                     <td>{r.checkIn ? new Date(r.checkIn).toLocaleTimeString() : '—'}</td>
                     <td>{r.checkOut ? new Date(r.checkOut).toLocaleTimeString() : '—'}</td>
+                    <td>{r.breakSeconds ? `${Math.round(r.breakSeconds / 60)}m` : '—'}</td>
                     <td>{r.hoursWorked != null ? `${r.hoursWorked}h` : '—'}</td>
-                    <td><StatusBadge value={r.status} /></td>
+                    <td>
+                      <StatusBadge value={r.status} />
+                      {r.late && r.status === 'PRESENT' && <span className="status-badge badge-late ms-1">Late</span>}
+                      {r.liveStatus && <span className={`status-badge badge-${r.liveStatus.toLowerCase()} ms-1`}>{r.liveStatus === 'ON_BREAK' ? 'On break' : 'Working'}</span>}
+                    </td>
                     <td>{r.remarks || '—'}</td>
                     <td>
                       <button
